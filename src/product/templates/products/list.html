@@ -11,6 +11,7 @@
 
 <div class="card">
     <form action="" method="get" class="card-header">
+        <!--
         <div class="form-row justify-content-between">
             <div class="col-md-2">
                 <input type="text" name="title" placeholder="Product Title" class="form-control">
@@ -39,6 +40,10 @@
                 <button type="submit" class="btn btn-primary float-right"><i class="fa fa-search"></i></button>
             </div>
         </div>
+        -->
+    
+
+
     </form>
 
     <div class="card-body">
@@ -55,46 +60,47 @@
                 </thead>
 
                 <tbody>
+                {% for p in productList %}
                 <tr>
                     <td>1</td>
-                    <td>T-Shirt <br> Created at : 25-Aug-2020</td>
-                    <td>Quality product in low cost</td>
+                    <td>{{p.product.title}}<br> Created at : 25-Aug-2020</td>
+                    <td>{{p.product.description}}</td>
                     <td>
                         <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
                                 <dt class="col-sm-3 pb-0">
-                                    XL/ Black/ Full
+                                    {{p.product_variant_one}}/{{p.product_variant_two}}/{{p.product_variant_three}}
                                 </dt>
                                 <dd class="col-sm-9">
                                     <dl class="row mb-0">
-                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
-                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                        <dd class="col-sm-4 pb-0">Price : {{p.price}}</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : {{p.stock}}</dd>
                                     </dl>
                                 </dd>
                                 <dt class="col-sm-3 pb-0">
-                                    XL/ Black/ Half
+                                    {{p.product_variant_one}}/{{p.product_variant_two}}/{{p.product_variant_three}}
                                 </dt>
                                 <dd class="col-sm-9">
                                     <dl class="row mb-0">
-                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
-                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                        <dd class="col-sm-4 pb-0">Price : {{p.price}}</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : {{p.stock}}</dd>
                                     </dl>
                                 </dd>
                                 <dt class="col-sm-3 pb-0">
-                                    L/ Black/ Full
+                                    {{p.product_variant_one}}/{{p.product_variant_two}}/{{p.product_variant_three}}
                                 </dt>
                                 <dd class="col-sm-9">
                                     <dl class="row mb-0">
-                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
-                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                        <dd class="col-sm-4 pb-0">Price : {{p.price}}</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : {{p.stock}}</dd>
                                     </dl>
                                 </dd>
                                 <dt class="col-sm-3 pb-0">
-                                    L/ Black/ Half
+                                    {{p.product_variant_one}}/{{p.product_variant_two}}/{{p.product_variant_three}}
                                 </dt>
                                 <dd class="col-sm-9">
                                     <dl class="row mb-0">
-                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
-                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                        <dd class="col-sm-4 pb-0">Price : {{p.price}}</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : {{p.stock}}</dd>
                                     </dl>
                                 </dd>
                             </dl>
@@ -107,6 +113,7 @@
                         </div>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
 
             </table>
@@ -116,10 +123,28 @@
 
     <div class="card-footer">
         <div class="row justify-content-between">
-            <div class="col-md-6">
+            <div class="col-md-6 justify-content-left">
                 <p>Showing 1 to 10 out of 100</p>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-6 justify-content-right">
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                {% if productList.has_previous %}
+                   <li class="page-item"><a class="page-link" href="?page= {{ productList.previous_page_number }}">&laquo</a></li>
+                {% endif %}
+
+                {% for i in nums %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+                  </li>
+                {% endfor %}
+
+                {% if productList.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page= {{ productList.next_page_number }}">&raquo</a></li>
+                {% endif %}
+                  </ul>
+                </nav>
 
             </div>
         </div>
